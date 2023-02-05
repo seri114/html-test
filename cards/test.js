@@ -5,7 +5,6 @@ $(function(){
 
 
     $('.category__nav a').click(function (e) {
-        console.log("clicked")
         e.preventDefault();
 
         if ($(this).hasClass('checked')) {
@@ -18,8 +17,8 @@ $(function(){
             $(this).addClass('checked');
             target.push($(this).attr('data-target'));
         }
-
         $.each(target, function (index, value) {
+            console.log(value)
             $('.category').find('.cableItem:not([data-target*="' + value + '"])').addClass('cableItem-hide');
         });
 
