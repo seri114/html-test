@@ -26,24 +26,19 @@ $(function(){
 
     var filteredTo = "None"
     var myTarget = "None"
-    function updateFilter(){
 
-        $('.category').find('.cableItem').removeClass('cableItem-hide');
-        if (filteredTo !== 'None' || myTarget !== 'None'){
-            $('.cableItem').each( function (index, element){
-                var dataTargetAttr = $(element).attr("data-target")
-                var myTargetAttr = $(element).attr("my-target")
-                
-                console.log(`${dataTargetAttr} ${filteredTo}   ${myTarget} ${myTargetAttr}`)
-                if (!dataTargetAttr.includes(filteredTo) && !myTargetAttr.includes(myTarget)){
-                    $(element).addClass('cableItem-hide')
-                }
-            })
-            // $('.category').find(`.cableItem:not([data-target*="${filteredTo}"])`).addClass('cableItem-hide');
-        }
-        // if (myTarget !== 'None'){
-            // $('.category').find(`.cableItem:not([my-target*="${myTarget}"])`).addClass('cableItem-hide');
-        // }
+    function isElementTarget(element){
+        return (filteredTo === 'None' || $(element).attr("data-target").includes(filteredTo))
+         && (myTarget === 'None' || $(element).attr("my-target").includes(myTarget));
+    }
+    function updateFilter(){
+        $('.cableItem').each( function (index, element){
+            if (!isElementTarget(element)){
+                $(element).addClass('cableItem-hide')
+            }else{
+                $(element).removeClass('cableItem-hide')
+            }
+        })
     }
     $('#type-selection').change(function(){
         filteredTo = $('#type-selection').val()
